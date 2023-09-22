@@ -73,5 +73,6 @@ def generate_csv(rows, hl7_type):
     else:
         print("No data found in csv_table")
 
+    # After creating the csv file for ADT messages, a database is created that mimics the final modified data in the csv
     if hl7_type == 'ADT':
         create_adt_table(output_file)
