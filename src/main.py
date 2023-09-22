@@ -21,7 +21,7 @@ data_tuple_ORM = read_hl7('Data/Sample ORU.txt', hl7_list)
 df = pd.read_csv("Data/sampledata.csv")
 
 # If the database doesn't exist, it will create one in the directory
-conn = sqlite3.connect("csv_database.db")
+conn = sqlite3.connect(":memory:")
 
 # Converted the sampledata.csv file data to SQL table
 df.to_sql("csv_table", conn, if_exists="replace", index=False)

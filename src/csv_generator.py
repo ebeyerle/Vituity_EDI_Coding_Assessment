@@ -1,5 +1,25 @@
 import csv
 from datetime import date
+import pandas as pd
+import sqlite3
+
+# Creates a database for all final modified CSV ADT messages.
+def create_adt_table(output_file):
+    # Create a connection to the SQLite database
+    conn = sqlite3.connect("csv_database.db")
+
+    # Read the CSV file into a DataFrame
+    df = pd.read_csv(output_file)
+
+    # Use the to_sql method to insert the DataFrame into an SQL table
+    # Replace 'my_table' with the name of your SQL table
+    df.to_sql("adt_table", conn, if_exists="replace", index=False)
+
+    # Commit the changes to the database
+    conn.commit()
+
+    # Close the database connection
+    conn.close()
 
 # Format the date to 'm-d-yyyy'
 def format_date(date):
@@ -52,3 +72,6 @@ def generate_csv(rows, hl7_type):
         print("Data saved to output csv")
     else:
         print("No data found in csv_table")
+
+    if hl7_type == 'ADT':
+        create_adt_table(output_file)
