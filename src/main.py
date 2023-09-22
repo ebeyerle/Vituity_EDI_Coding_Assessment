@@ -37,6 +37,7 @@ INSERT INTO csv_table (
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 """
 
+# Go through each of the parsed hl7 data to generate a csv file
 for hl7 in hl7_list:
     if hl7[0] == 'ADT-A03':
         c.execute(insert_query, hl7)
@@ -55,7 +56,6 @@ for hl7 in hl7_list:
 conn.commit()
 
 # Fetch Table Data
-print("Display billing data:")
 c.execute("""SELECT patient_state AS 'State', SUM(bill_amount) AS 'Bill Amount' FROM csv_table
           GROUP BY state""")
 

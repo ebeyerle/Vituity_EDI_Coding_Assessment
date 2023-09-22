@@ -1,3 +1,4 @@
+# Function create a txt file for the billed amount of each state
 def get_bill_amount(rows):
   # Define the file name for the output text file
   output_file_name = 'billed_amount.txt'

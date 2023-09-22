@@ -1,10 +1,12 @@
 import csv
 from datetime import date
 
+# Format the date to 'm-d-yyyy'
 def format_date(date):
     date = date.strftime("%m-%d-%Y")
     return date
 
+# Created the modified csv files for eith ORU or ADT
 def generate_csv(rows, hl7_type):
     output_file = 'Error.txt'
 
@@ -17,7 +19,6 @@ def generate_csv(rows, hl7_type):
 
     # Check if any rows were returned
     if len(rows) > 0:
-        print("Data in csv_table:")
         
         # Create a list to hold the modified rows
         modified_rows = []
@@ -36,7 +37,6 @@ def generate_csv(rows, hl7_type):
             modified_row = (message_type, patient_name, address, state, account_number, bill_amount, date_of_service)
             modified_rows.append(modified_row)
             
-            print(modified_row)
         
         # Create a CSV file and write the modified data to it
         with open(output_file, "w", newline="") as csvfile:
