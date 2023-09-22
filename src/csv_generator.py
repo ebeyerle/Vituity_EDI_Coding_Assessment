@@ -69,7 +69,7 @@ def generate_csv(rows, hl7_type):
             # Write the modified data rows
             csv_writer.writerows(modified_rows)
             
-        print("Data saved to output csv")
+        print("Data saved to output csv - " + output_file)
     else:
         print("No data found in csv_table")
 
