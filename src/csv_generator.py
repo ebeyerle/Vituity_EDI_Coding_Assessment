@@ -1,7 +1,14 @@
 import csv
+import os
 from datetime import date
 import pandas as pd
 import sqlite3
+
+
+# Function to ensure a directory exists and create it if needed
+def ensure_directory_exists(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 # Creates a database for all final modified CSV ADT messages.
 def create_adt_table(output_file):
@@ -28,14 +35,19 @@ def format_date(date):
 
 # Created the modified csv files for eith ORU or ADT
 def generate_csv(rows, hl7_type):
-    output_file = 'Error.txt'
+    # Specify the base output directory
+    base_output_dir = 'Archive/Modified/'
 
-    # check to see what type hl7 message is being sent through
+    # Ensure that the base output directory exists
+    ensure_directory_exists(base_output_dir)
+
+    # Set the output file path based on the HL7 message type and current date
     if hl7_type == 'ADT':
-        output_file = 'Archive/Modified/ADT_{}_Modified_file.csv'.format(date.today())
-
-    if hl7_type == 'ORM':
-        output_file = 'Archive/Modified/ORU_{}_Modified_file.csv'.format(date.today())
+        output_file = os.path.join(base_output_dir, f'ADT_{date.today()}_Modified_file.csv')
+    elif hl7_type == 'ORM':
+        output_file = os.path.join(base_output_dir, f'ORU_{date.today()}_Modified_file.csv')
+    else:
+        output_file = 'Error.txt'
 
     # Check if any rows were returned
     if len(rows) > 0:
