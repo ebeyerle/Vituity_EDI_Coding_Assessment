@@ -13,6 +13,10 @@ def make_backups():
 # Specify the destination directory
   archive_original_dir = 'Archive/Original/'
 
+# Create the destination directory if it doesn't exist
+  if not os.path.exists(archive_original_dir):
+      os.makedirs(archive_original_dir)
+
 # Get a list of all files in the current directory
   files_to_copy = os.listdir(file_directory)
 
